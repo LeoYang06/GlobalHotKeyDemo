@@ -1,0 +1,94 @@
+﻿<Window x:Class="GlobalHotKeyDemo.HotKeySettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="热键设置"
+        Height="430"
+        Width="420"
+        WindowStartupLocation="CenterScreen"
+        x:Name="win"
+        Loaded="win_Loaded"
+        Closed="win_Closed_1">
+    <Window.Resources>
+        <Style x:Key="ckbStyle1"
+               TargetType="CheckBox">
+            <Setter Property="Width"
+                    Value="100" />
+            <Setter Property="Margin"
+                    Value="0,0,20,0" />
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+        </Style>
+        <Style x:Key="ckbStyle2"
+               TargetType="CheckBox">
+            <Setter Property="Width"
+                    Value="50" />
+            <Setter Property="Margin"
+                    Value="0,0,5,0" />
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+        </Style>
+        <Style x:Key="cmbStyle1"
+               TargetType="ComboBox">
+            <Setter Property="MinWidth"
+                    Value="80" />
+            <Setter Property="Width"
+                    Value="80" />
+            <Setter Property="Margin"
+                    Value="0,0,5,0" />
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <ItemsControl Margin="10"
+                          ItemsSource="{Binding HotKeyList,ElementName=win}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="7">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <CheckBox Grid.Column="0"
+                                      Content="{Binding Name}"
+                                      IsChecked="{Binding IsUsable}"
+                                      Style="{StaticResource ckbStyle1}" />
+                            <CheckBox  Grid.Column="1"
+                                       Content="Ctrl"
+                                       IsChecked="{Binding IsSelectCtrl}"
+                                       IsEnabled="{Binding IsUsable}"
+                                       Style="{StaticResource ckbStyle2}" />
+                            <CheckBox  Grid.Column="2"
+                                       Content="Shift"
+                                       IsChecked="{Binding IsSelectShift}"
+                                       IsEnabled="{Binding IsUsable}"
+                                       Style="{StaticResource ckbStyle2}" />
+                            <CheckBox  Grid.Column="3"
+                                       Content="Alt"
+                                       IsChecked="{Binding IsSelectAlt}"
+                                       IsEnabled="{Binding IsUsable}"
+                                       Style="{StaticResource ckbStyle2}" />
+                            <ComboBox  Grid.Column="4"
+                                       ItemsSource="{Binding Keys}"
+                                       SelectedItem="{Binding SelectKey}"
+                                       IsEnabled="{Binding IsUsable}"
+                                       Style="{StaticResource cmbStyle1}" />
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Button Content="保存设置"
+                    Height="25"
+                    Width="80"
+                    Margin="10"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    x:Name="btnSaveSetting"
+                    Click="btnSaveSetting_Click" />
+        </StackPanel>
+    </Grid>
+</Window>
